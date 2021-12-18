@@ -29,16 +29,16 @@
    <th>Ações</th></tr>
   </thead>
   <tbody>
-    <tr>
+    <tr  *ngFor="let item of categories">
     <td>
-      <strong>Lazer </strong>
-       <small>Cinema , parque, praia, etc...</small>
+       <strong>{{item.name}}</strong>  - 
+        <small>{{item.description}}</small>
       </td>
          <!-- entende que tem a url /categories antes do id e edit
            para absoluto seria /12,edit-->
        <td>
-         <a [routerLink]="[12,'edit']" class="btn btn-outline-info btn-sm mr-2">Editar</a>
-         <a  [routerLink]="[12,'edit']"   class="btn btn-outline-danger btn-sm">Excluir</a>
+         <a  [routerLink]="[item.id,'edit']" class="btn btn-outline-info btn-sm mr-2 ">Editar</a> -  
+         <button   (click)="deleteCategory(item)"   class="btn btn-outline-danger btn-sm">Excluir</button> 
       </td>
       </tr>
 </tbody>

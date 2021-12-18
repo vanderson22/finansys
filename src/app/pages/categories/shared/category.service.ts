@@ -9,7 +9,7 @@ import { Category } from '../../shared/category.model';
 })
 export class CategoryService {
 
-  private apiPath: string = "api/categories";
+  private apiPath: string = "http://localhost:8080/api/categories"; // "api/categories";
 
 
   constructor(private http: HttpClient) { }
@@ -28,6 +28,14 @@ export class CategoryService {
   }
 
 
+  delete(id: number): Observable<Category> {
+    const url = `${this.apiPath}/${id}`;
+
+    return this.http.delete(url).pipe(catchError(this.handleError)
+      , map(() => null)
+    );
+  }
+
    create(category: Category) : Observable<Category>{
 
     return this.http.post(this.apiPath, category).pipe(
@@ -44,6 +52,8 @@ export class CategoryService {
       // map(this.jsonToCategory)
     );
   }
+
+ 
 
 
   jsonToCategory(category: any): Category {
