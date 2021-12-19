@@ -51,34 +51,20 @@ export class CategoryFormComponent implements OnInit, AfterContentChecked {
 
   submitForm() {
     this.submittingForm = true
+    const category: Category = Object.assign(new Category(), this.categoryForm.value);
+   
     if (this.currentAction == 'new') {
-      this.createCategory();
-    } else {
+      console.log("Nova categoria");
+      this.createCategory(category);
 
-      this.updateCategory();
+    } else {
+      console.log("Atualizando categoria");
+      this.updateCategory(category);
     }
 
   }
 
-  /**
-   *    O assign atribui os valores do category form, 
-   * excelente para utilizar quando temos muitos campos
-   * **/
-  createCategory() {
-
-    const category: Category = Object.assign(new Category(), this.categoryForm.value);
-    
-    //criar nova categoria.
-    this.service.create(category).subscribe(
-      category => {
-        return this.actionsForSuccess(category);
-      },
-      error => {
-        return this.actionsForError(error);
-      }
-    );
-  }
-
+ 
   /**
    *  vai setar o pagetitle dinâmicamente após carregado.
    *   válido apenas edição
@@ -168,10 +154,35 @@ export class CategoryFormComponent implements OnInit, AfterContentChecked {
       () => this.router.navigate(["categories", category.id, "edit"])
     )
   }
-  private updateCategory() {
-    throw new Error('Method not implemented.');
+  private updateCategory(category : Category) {
+       //criar nova categoria.
+    this.service.update(category).subscribe(
+      category => {
+        return this.actionsForSuccess(category);
+      },
+      error => {
+        return this.actionsForError(error);
+      }
+    );
   }
 
+ /**
+   *    O assign atribui os valores do category form, 
+   * excelente para utilizar quando temos muitos campos
+   * **/
+ private createCategory(category : Category) {
+
+     
+    //criar nova categoria.
+    this.service.create(category).subscribe(
+      category => {
+        return this.actionsForSuccess(category);
+      },
+      error => {
+        return this.actionsForError(error);
+      }
+    );
+  }
 
 
 }//Fim

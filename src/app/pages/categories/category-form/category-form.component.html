@@ -8,7 +8,7 @@
       <a routerLink="/categories" > Categorias </a>
   </li>
     <li class="breadcrumb-item active">
-        Formulário de categoria 
+        {{pageTitle}}
     </li>
   </ol>
 </nav>
@@ -17,7 +17,7 @@
   <!--largura toda da linha-->
   <div class="col-md">
     <h1 class="h2 border-left pl-2">
-      Formulário de categoria
+      {{pageTitle}}
     </h1>
   </div>
    <div class="col-md-2"> 
@@ -50,6 +50,13 @@
        </div>
     </div>
   </div>
+
+    <div class="alert alert-danger mt-4" *ngIf="serverErrorMessages">
+       <strong>Erro no servidor: </strong>
+       <ul *ngFor="let messages of serverErrorMessages">
+         <li>{{messages}}</li>
+       </ul>
+    </div>
      <!-- botão é desabilitado em duas situação, ao enviar, ou quando for inválido algum item do grupo do formulário.-->
-     <button class="btn btn-primary btn-lg float-right mt-3" type="submit" [disabled] = "submittingForm || categoryForm.invalid" >Salvar</button>
+     <button class="btn btn-primary btn-lg float-right mt-3 ml-3"  type="submit" [disabled] = "submittingForm || categoryForm.invalid" >Salvar</button>
 </form>
